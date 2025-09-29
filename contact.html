@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | World’s Edge Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-bLAfiKzWjP9K4HxpS6ecH6gW6XMo3xi1uE1Nvx2xUXwQysX5MsKk2Ryb0Uq8rSaxDUosQshOjsA8d5Eb/h6m4g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Use root-level stylesheet -->
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Inline styles for form elements */
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .contact-form input,
+      .contact-form textarea {
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 1rem;
+      }
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        outline: none;
+        border-color: var(--colour-gold);
+      }
+      .contact-form button {
+        align-self: flex-start;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo">
+          <img src="logo.png" alt="World’s Edge Group logo" />
+        </a>
+        <nav class="main-nav" id="mainNav">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="insights.html">Insights</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+          </ul>
+        </nav>
+        <button class="mobile-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Update hero background to use root-level map image -->
+      <section class="page-hero" style="background-image: url('map.png');">
+        <div class="container hero-content">
+          <h1>Contact Us</h1>
+          <p class="subtitle">Let’s start a conversation</p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="container">
+          <h2>We’d love to hear from you</h2>
+          <p>
+            Whether you have questions about our services, wish to collaborate on a
+            project or want to learn more about the upcoming Impact 100 report,
+            please fill out the form below. We’ll respond promptly to your
+            inquiry.
+          </p>
+          <form class="contact-form" action="mailto:info@worldsedgegroup.com" method="post" enctype="text/plain">
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="text" name="organisation" placeholder="Organisation (optional)" />
+            <input type="email" name="email" placeholder="Email Address" required />
+            <textarea name="message" rows="5" placeholder="How can we help?" required></textarea>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <h3>World’s Edge Group</h3>
+          <p>
+            Evidence‑based insights at the frontier of economics, policy and
+            strategy. Helping organisations anticipate change and act decisively.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h3>Pages</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="insights.html">Insights</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <p>Email: <a href="mailto:info@worldsedgegroup.com">info@worldsedgegroup.com</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 World’s Edge Group. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Use root-level script -->
+    <script src="scripts.js"></script>
+  </body>
+</html>
