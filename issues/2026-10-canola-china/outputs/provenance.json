@@ -1,0 +1,12 @@
+{
+  "generated_at_utc": "2026-10-03T15:30:22Z",
+  "git_commit": "dde9b2b5a4b50a0938b3e8d2ce788749c15fd8c5",
+  "input_vintages": {
+    "boc": "None",
+    "cgc": "None",
+    "comtrade": "None",
+    "statcan_cimt": "None",
+    "tdo": "None"
+  },
+  "issue": "2026-10-canola-china"
+}

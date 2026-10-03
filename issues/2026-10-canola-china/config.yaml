@@ -1,0 +1,108 @@
+# Issue 1 configuration. Every window edge, product list, market list and threshold
+# used by the analysis lives here, never in code.
+slug: 2026-10-canola-china
+title: "Where Canadian canola and peas went after China's 2025 measures"
+question: >
+  After China's 2025 tariffs on Canadian canola oil, meal and peas, and its anti-dumping
+  measures on Canadian canola seed, where did Canadian exports go, at what price, and
+  what did it cost Canada?
+
+# Gate: when true, tests require every event referenced below to be CONFIRMED in events.yaml.
+publication_ready: false
+
+data:
+  first_period: "2019-01"
+  latest_period: "2026-07"      # StatCan July 2026 release (2026-09-03); bump after 2026-10-06 release
+  data_release: null            # GitHub release tag holding the raw snapshot (set by `make archive`)
+  vintages:                     # pinned vintages per source; `make download VINTAGE=latest` proposes new ones
+    statcan_cimt: null
+    tdo: null
+    comtrade: null
+    boc: null
+    cgc: null
+
+products:
+  canola_seed:
+    hs6: ["120510"]
+    label: "Canola seed"
+    events: [ad_deposit, ad_final]
+  canola_oil:
+    hs6: ["151411", "151419", "151491", "151499"]
+    label: "Canola oil"
+    events: [tariff_100]
+  canola_meal:
+    hs6: ["230641", "230649"]
+    label: "Canola meal"
+    events: [tariff_100, tariff_suspended]
+  dried_peas:
+    hs6: ["071310"]
+    label: "Dried peas"
+    events: [tariff_100, tariff_suspended]
+
+# Windows per product (decision D1). pre = 12 months ending the month before the event month.
+windows:
+  canola_seed:
+    event_month: "2025-08"
+    partial_month: "2025-08"
+    pre: ["2024-08", "2025-07"]
+    shock: ["2025-09", "2026-02"]
+    relief: ["2026-03", "2026-07"]
+  canola_oil:
+    event_month: "2025-03"
+    partial_month: "2025-03"
+    pre: ["2024-03", "2025-02"]
+    shock: ["2025-04", "2026-02"]
+    relief: null
+  canola_meal:
+    event_month: "2025-03"
+    partial_month: "2025-03"
+    pre: ["2024-03", "2025-02"]
+    shock: ["2025-04", "2026-02"]
+    relief: ["2026-03", "2026-07"]
+  dried_peas:
+    event_month: "2025-03"
+    partial_month: "2025-03"
+    pre: ["2024-03", "2025-02"]
+    shock: ["2025-04", "2026-02"]
+    relief: ["2026-03", "2026-07"]
+
+counterfactuals:
+  A:
+    name: same_months_prior_year
+  B:
+    name: trend_seasonal
+    fit_start: "2019-01"
+    fit_end: "2024-12"
+    exclude: []
+  B_prime:
+    name: trend_seasonal_ex_2020_2021
+    fit_start: "2019-01"
+    fit_end: "2024-12"
+    exclude: [["2020-01", "2021-12"]]
+
+seasonality:
+  min_nonzero_months: 24      # below this a series uses product-level factors
+
+price:
+  min_pre_months: 3           # destinations need >= 3 pre months of trade for own pre/post comparison
+  gap_trend:                  # new-buyer vs China gap slope classification
+    narrowing_if_t_below: -2.0
+    widening_if_t_above: 2.0
+
+# Partner markets for Comtrade pulls. Finalised at checkpoint 3 from getDa availability.
+markets:
+  china: CHN
+  candidates: [JPN, KOR, IND, PAK, BGD, VNM, IDN, MYS, THA, ARE, TUR, MEX, USA]
+  competitors: [AUS, RUS, UKR, KAZ, USA]
+
+reconciliation:
+  # partner CIF imports / Canadian FOB exports, annual sums, acceptable band per product
+  tolerance:
+    canola_seed: [0.85, 1.25]
+    canola_oil: [0.80, 1.30]
+    canola_meal: [0.80, 1.30]
+    dried_peas: [0.75, 1.35]
+  lag_months: [0, 1, 2]
+
+fx:
+  pairs: [FXMUSDCAD, FXMCNYCAD]

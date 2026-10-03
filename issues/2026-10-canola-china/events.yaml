@@ -1,0 +1,160 @@
+# Verified event timeline. status: CONFIRMED only after the primary URL was opened and the
+# date, rate and tariff lines read from it. UNCONFIRMED rows carry the best available
+# reference and the reason. Nothing here is from memory.
+events:
+  - id: ca_ev_surtax
+    date: "2024-08-26"
+    effective: "2024-10-01"
+    actor: "Department of Finance Canada"
+    instrument: "China Surtax Order (2024)"
+    measure: "100% surtax on Chinese-made electric vehicles"
+    rate: "100%"
+    tariff_lines: []
+    source_url: "https://www.canada.ca/en/department-finance/news/2024/08/canada-implementing-measures-to-protect-canadian-workers-and-key-economic-sectors-from-unfair-chinese-trade-practices.html"
+    status: UNCONFIRMED
+    reason: "Primary URL found via search index; page not opened (network policy blocked canada.ca)."
+    verified_on: null
+  - id: ca_steel_surtax
+    date: "2024-10-01"
+    effective: "2024-10-22"
+    actor: "Department of Finance Canada"
+    instrument: "China Surtax Order (2024), amended"
+    measure: "25% surtax on Chinese steel and aluminum products"
+    rate: "25%"
+    tariff_lines: []
+    source_url: "https://www.canada.ca/en/department-finance/news/2024/10/canada-taking-further-action-to-protect-workers-and-critical-industries-against-unfair-chinese-competition.html"
+    status: UNCONFIRMED
+    reason: "Primary URL found via search index; page not opened. Canada's August release said 15 Oct; China cites 22 Oct."
+    verified_on: null
+  - id: ad_initiation
+    date: "2024-09-09"
+    effective: "2024-09-09"
+    actor: "MOFCOM"
+    instrument: "商务部公告2024年第37号"
+    measure: "Anti-dumping investigation initiated on rapeseed originating in Canada"
+    rate: null
+    tariff_lines: ["12051090", "12059090"]
+    source_url: "https://trb.mofcom.gov.cn/myjjdctbdzz/art/2024/art_40ac9e714b1c4118a708a1aede6356c1.html"
+    status: UNCONFIRMED
+    reason: "Primary URL found via search index; page not opened (mofcom.gov.cn blocked)."
+    verified_on: null
+  - id: antidiscrimination_initiation
+    date: "2024-09-26"
+    effective: "2024-09-26"
+    actor: "MOFCOM"
+    instrument: "商务部公告2024年第40号"
+    measure: "Anti-discrimination investigation into Canada's EV and steel/aluminum surtaxes"
+    rate: null
+    tariff_lines: []
+    source_url: "https://www.mofcom.gov.cn/zwgk/zcfb/art/2024/art_0e59c4b8d230485aa8209bb541b2fc29.html"
+    status: UNCONFIRMED
+    reason: "Primary URL found via search index; page not opened."
+    verified_on: null
+  - id: antidiscrimination_ruling
+    date: "2025-03-08"
+    effective: "2025-03-08"
+    actor: "MOFCOM"
+    instrument: "商务部公告2025年第11号"
+    measure: "Anti-discrimination ruling: Canada's measures found discriminatory; additional tariffs to be imposed"
+    rate: null
+    tariff_lines: []
+    source_url: "https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_df5cabbc1d924c1e8293d5fa60193133.html"
+    status: UNCONFIRMED
+    reason: "Primary URL found via search index; page not opened."
+    verified_on: null
+  - id: tariff_100
+    date: "2025-03-08"
+    effective: "2025-03-20"
+    actor: "Customs Tariff Commission of the State Council"
+    instrument: "税委会公告2025年第3号"
+    measure: "Additional tariffs on goods originating in Canada: Annex 1 at 100% (rapeseed oil, oilcake, peas), Annex 2 at 25% (pork, aquatic products)"
+    rate: "100% (Annex 1); 25% (Annex 2)"
+    tariff_lines: ["15141100", "15141900", "23064100", "23064900", "07131010", "07131090", "07081000", "07102100"]
+    source_url: "https://m.mof.gov.cn/zcfb/202503/t20250307_3959523.htm"
+    status: UNCONFIRMED
+    reason: "Primary URL found via search index; annex lines taken from a secondary reproduction. Whether 15149100/15149900 are included is unknown."
+    verified_on: null
+  - id: ad_deposit
+    date: "2025-08-12"
+    effective: "2025-08-14"
+    actor: "MOFCOM"
+    instrument: "商务部公告2025年第40号"
+    measure: "Preliminary anti-dumping determination on Canadian rapeseed: cash deposit required"
+    rate: "75.8%"
+    tariff_lines: ["12051090", "12059090"]
+    source_url: "https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_bf2ca1ee8cdd457b99ea06baa13cae87.html"
+    status: UNCONFIRMED
+    reason: "Primary URL found via search index; page not opened."
+    verified_on: null
+  - id: ad_extension
+    date: "2025-09-05"
+    effective: null
+    actor: "MOFCOM"
+    instrument: "商务部公告2025年第45号"
+    measure: "Rapeseed anti-dumping investigation period extended to 2026-03-09"
+    rate: null
+    tariff_lines: []
+    source_url: null
+    status: UNCONFIRMED
+    reason: "Secondary sources only (clii.com.cn, realagriculture.com); primary announcement URL not located."
+    verified_on: null
+  - id: joint_arrangement
+    date: "2026-01-16"
+    effective: "2026-03-01"
+    actor: "Prime Minister of Canada / Global Affairs Canada"
+    instrument: "Canada-China preliminary joint arrangement"
+    measure: "Canada expects China to lower the combined canola seed rate to about 15% and stop collecting anti-discrimination tariffs on canola meal, peas, lobster and crab; Canada to admit 49,000 Chinese EVs a year at 6.1%"
+    rate: "~15% seed combined"
+    tariff_lines: []
+    source_url: "https://www.pm.gc.ca/en/news/news-releases/2026/01/16/prime-minister-carney-forges-new-strategic-partnership-peoples"
+    status: UNCONFIRMED
+    reason: "Primary URL found via search index; page not opened (pm.gc.ca blocked)."
+    verified_on: null
+  - id: tariff_suspended
+    date: "2026-02-27"
+    effective: "2026-03-01"
+    actor: "Customs Tariff Commission of the State Council"
+    instrument: "税委会公告2026年第2号"
+    measure: "From 2026-03-01 to 2026-12-31 the 100% additional tariff on oilcake and peas and the 25% on lobster and crab are not collected. Canola oil (100%), pork and other aquatic products (25%) unchanged."
+    rate: "0% additional for covered goods"
+    tariff_lines: []
+    source_url: "https://www.hunan.gov.cn/zqt/zcsd/202602/t20260228_33922803.html"
+    status: UNCONFIRMED
+    reason: "Mirror page only; MoF primary and annex not opened. Annex lines unknown."
+    verified_on: null
+  - id: antidiscrimination_adjusted
+    date: "2026-02-27"
+    effective: "2026-03-01"
+    actor: "MOFCOM"
+    instrument: "商务部公告2026年第13号"
+    measure: "Anti-discrimination measures adjusted following the joint arrangement"
+    rate: null
+    tariff_lines: []
+    source_url: "https://www.mofcom.gov.cn/zwgk/zcfb/art/2026/art_52b7b305759f414cb86aad99c264426a.html"
+    status: UNCONFIRMED
+    reason: "Primary URL found via search index; page not opened."
+    verified_on: null
+  - id: ad_final
+    date: "2026-02-28"
+    effective: "2026-03-01"
+    actor: "MOFCOM"
+    instrument: "商务部公告2026年第14号"
+    measure: "Final anti-dumping determination on Canadian rapeseed: duty for five years; deposits paid 2025-08-14 to 2025-12-13 converted at the final rate, excess refunded; deposits paid 2025-12-14 to 2026-02-28 refunded in full"
+    rate: "5.9%"
+    tariff_lines: ["12051090", "12059090"]
+    source_url: "https://www.mofcom.gov.cn/zwgk/zcfb/art/2026/art_545de9da8f9744459d17cc6fd3ab0132.html"
+    status: UNCONFIRMED
+    reason: "Primary URL found via search index; page not opened."
+    verified_on: null
+  - id: pea_starch_ad
+    date: "2025-08-12"
+    effective: "2026-07-01"
+    actor: "MOFCOM"
+    instrument: "商务部公告2025年第41号 (initiation); preliminary determination 2026-06-30"
+    measure: "Anti-dumping investigation on Canadian pea starch (11081900); preliminary deposit 73.5% from 2026-07-01. Out of Issue 1 scope; context only."
+    rate: "73.5%"
+    tariff_lines: ["11081900"]
+    source_url: null
+    status: UNCONFIRMED
+    reason: "Secondary sources only."
+    verified_on: null

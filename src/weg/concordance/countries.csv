@@ -1,0 +1,24 @@
+iso3,name,comtrade_code,statcan_name,asia,notes
+CHN,China,156,China,1,
+JPN,Japan,392,Japan,1,
+KOR,"Korea, Republic of",410,"Korea, South",1,
+IND,India,699,India,1,"Comtrade reporter code 699 not 356"
+PAK,Pakistan,586,Pakistan,1,
+BGD,Bangladesh,50,Bangladesh,1,
+VNM,Viet Nam,704,Vietnam,1,
+IDN,Indonesia,360,Indonesia,1,
+MYS,Malaysia,458,Malaysia,1,
+THA,Thailand,764,Thailand,1,
+PHL,Philippines,608,Philippines,1,
+SGP,Singapore,702,Singapore,1,
+TWN,"Taiwan, Province of China",490,Taiwan,1,"Comtrade uses 490 'Other Asia, nes'"
+HKG,Hong Kong,344,Hong Kong,1,
+ARE,United Arab Emirates,784,United Arab Emirates,0,
+TUR,Türkiye,792,Turkey,0,
+MEX,Mexico,484,Mexico,0,
+USA,United States of America,842,United States,0,"Comtrade 842 (also 840)"
+AUS,Australia,36,Australia,0,
+RUS,Russian Federation,643,Russia,0,
+UKR,Ukraine,804,Ukraine,0,
+KAZ,Kazakhstan,398,Kazakhstan,0,
+CAN,Canada,124,Canada,0,
