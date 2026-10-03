@@ -1,7 +1,8 @@
 """Issue 1 pipeline entry points, called by `python -m weg <stage> --issue 2026-10-canola-china`.
 
 Each stage is a function of the issue config and the files on disk, so `make all`
-is reproducible. Stages are filled in checkpoint by checkpoint.
+is reproducible. `analyze` writes outputs/numbers.json and outputs/tables/*.csv;
+`figures` renders outputs/figures from those tables without recomputing.
 """
 from __future__ import annotations
 
@@ -20,7 +21,11 @@ from weg.download import vintage as V
 from weg.manifest import Manifest
 from weg.numbers import NumbersWriter, write_provenance
 
-STEPS_IMPLEMENTED: list[str] = ["download", "clean"]
+from . import common as C
+from . import figures as FIG
+from . import q1_diversion, q2_price, q3_replacement, q4_cost, q5_cuts
+
+STEPS_IMPLEMENTED: list[str] = ["download", "clean", "q1", "q2", "q3", "q4", "q5", "figures"]
 
 
 def _outputs(cfg: dict) -> Path:
@@ -93,22 +98,36 @@ def clean(cfg: dict, vintage: str = "pinned") -> None:
     print(json.dumps(report, indent=2, sort_keys=True))
 
 
-def analyze(cfg: dict, vintage: str = "pinned") -> None:
+def analyze(cfg: dict, vintage: str = "pinned", clean_dir: Path | None = None) -> NumbersWriter:
     out = _outputs(cfg)
+    tables = out / "tables"
+    T = C.load_tables(clean_dir)
     numbers = NumbersWriter(cfg["slug"])
-    numbers.add(
-        "meta.latest_period", cfg["data"]["latest_period"], "YYYY-MM",
-        "config.data.latest_period", note="Latest StatCan reference month used",
-    )
+    numbers.add("meta.latest_period", cfg["data"]["latest_period"], "YYYY-MM", "config.data.latest_period",
+                note="Latest StatCan reference month used")
     numbers.add("meta.steps_implemented", list(STEPS_IMPLEMENTED), "list", "analysis/run.py")
+    numbers.add("meta.headline_counterfactual", C.HEADLINE_CF, "label", "analysis/common.py",
+                note="All counterfactuals are reported; this one is used for headline figures")
+    q1 = q1_diversion.run(cfg, T, numbers, tables)
+    q2 = q2_price.run(cfg, T, numbers, tables, q1)
+    q3_replacement.run(cfg, T, numbers, tables)
+    q4_cost.run(cfg, T, numbers, tables, q1, q2)
+    q5_cuts.run(cfg, T, numbers, tables, q1, q2)
     numbers.write(out / "numbers.json")
-    write_provenance(out / "provenance.json", issue=cfg["slug"], vintages={k: str(v) for k, v in cfg["data"]["vintages"].items()})
+    vintages = {}
+    for name, df in (("ca_exports", T.ca), ("comtrade", T.ct), ("fx", T.fx), ("ca_exports_province", T.prov)):
+        if df is not None and "vintage" in df:
+            vintages[name] = ",".join(sorted(map(str, df["vintage"].unique())))
+    write_provenance(out / "provenance.json", issue=cfg["slug"], vintages=vintages)
+    return numbers
 
 
-def figures(cfg: dict, vintage: str = "pinned") -> None:
-    _outputs(cfg)
-    # figure list arrives with checkpoint 5
+def figures(cfg: dict, vintage: str = "pinned") -> list[Path]:
+    out = _outputs(cfg)
+    return FIG.render_all(cfg, out / "tables", out / "figures")
 
 
 def archive(cfg: dict, vintage: str = "pinned") -> None:
-    raise NotImplementedError("archive stage arrives in checkpoint 10")
+    from weg.archive import archive_issue
+
+    archive_issue(cfg)

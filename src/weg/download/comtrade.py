@@ -118,11 +118,19 @@ def download(cfg: dict, vintage: str, manifest: Manifest, raw_root: Path | None 
                     vintage=vintage, raw_path=avail_path, issue=cfg["slug"])
     out.append(avail_path)
     available = {(int(r["reporterCode"]), str(r["period"])[:4]) for r in json.loads(avail_path.read_text())}
-    for iso3 in reporters:
+    # imports (flow M) for China and candidate markets; exports (flow X) for candidate markets and
+    # competitors so the transshipment screen and Q3 mirror checks have the other side of each flow
+    plan = [(r, "M") for r in reporters] + [(r, "X") for r in cfg["markets"]["candidates"] + cfg["markets"].get("competitors", [])
+                                             if r != cfg["markets"]["china"]]
+    seen = set()
+    for iso3, flow in plan:
+        if (iso3, flow) in seen or iso3 not in code_of:
+            continue
+        seen.add((iso3, flow))
         rc = code_of[iso3]
         for year in years:
             if (rc, str(year)) not in available:
                 continue
-            out.append(download_year(cfg=cfg, vintage=vintage, manifest=manifest, reporter_code=rc, flow="M",
+            out.append(download_year(cfg=cfg, vintage=vintage, manifest=manifest, reporter_code=rc, flow=flow,
                                      year=year, cmd_codes=cmd_codes, raw_root=raw_root))
     return out

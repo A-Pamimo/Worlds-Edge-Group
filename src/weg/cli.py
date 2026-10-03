@@ -13,14 +13,17 @@ STAGES = ("download", "clean", "analyze", "figures", "archive")
 
 
 def load_issue_runner(slug: str, issues_dir: Path | None = None) -> ModuleType:
-    path = config.issue_dir(slug, issues_dir) / "analysis" / "run.py"
-    spec = importlib.util.spec_from_file_location(f"issue_{slug.replace('-', '_')}_run", path)
-    if spec is None or spec.loader is None:
-        raise ImportError(f"cannot load {path}")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
+    """Import issues/<slug>/analysis as a package (so its modules can import each other) and return run."""
+    pkg_dir = config.issue_dir(slug, issues_dir) / "analysis"
+    pkg_name = f"issue_{slug.replace('-', '_')}"
+    if pkg_name not in sys.modules:
+        spec = importlib.util.spec_from_file_location(pkg_name, pkg_dir / "__init__.py", submodule_search_locations=[str(pkg_dir)])
+        if spec is None or spec.loader is None:
+            raise ImportError(f"cannot load {pkg_dir}")
+        pkg = importlib.util.module_from_spec(spec)
+        sys.modules[pkg_name] = pkg
+        spec.loader.exec_module(pkg)
+    return importlib.import_module(f"{pkg_name}.run")
 
 
 def main(argv: list[str] | None = None) -> int:
