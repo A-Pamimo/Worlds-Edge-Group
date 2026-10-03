@@ -9,7 +9,7 @@ from types import ModuleType
 
 from weg import config
 
-STAGES = ("download", "clean", "analyze", "figures", "archive")
+STAGES = ("download", "clean", "analyze", "figures", "report", "archive")
 
 
 def load_issue_runner(slug: str, issues_dir: Path | None = None) -> ModuleType:
@@ -34,6 +34,11 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     cfg = config.load_issue_config(args.issue)
     runner = load_issue_runner(args.issue)
+    if args.stage == "report":
+        from weg.report import render_issue
+
+        print(render_issue(Path(cfg["_dir"])))
+        return 0
     fn = getattr(runner, args.stage, None)
     if fn is None:
         parser.error(f"issue {args.issue} does not implement stage {args.stage!r}")

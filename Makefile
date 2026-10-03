@@ -5,7 +5,7 @@ VINTAGE ?= pinned
 UV      ?= uv
 RUN      = $(UV) run python -m weg
 
-.PHONY: help setup download clean analyze figures all test archive lock
+.PHONY: help setup download clean analyze figures report all test archive lock
 
 help:
 	@echo "Targets (ISSUE=$(ISSUE), VINTAGE=$(VINTAGE)):"
@@ -15,6 +15,7 @@ help:
 	@echo "  clean     build standard parquet tables in data/clean"
 	@echo "  analyze   compute outputs/numbers.json and outputs/tables for the issue"
 	@echo "  figures   render outputs/figures (SVG + PNG)"
+	@echo "  report    render REPORT.md from REPORT.template.md and numbers.json"
 	@echo "  all       setup download clean analyze figures"
 	@echo "  test      pytest (no network needed)"
 	@echo "  archive   upload the issue's raw snapshot as a GitHub release asset"
@@ -38,7 +39,10 @@ analyze:
 figures:
 	$(RUN) figures --issue $(ISSUE)
 
-all: setup download clean analyze figures
+report:
+	$(RUN) report --issue $(ISSUE)
+
+all: setup download clean analyze figures report
 
 test:
 	$(UV) run pytest
